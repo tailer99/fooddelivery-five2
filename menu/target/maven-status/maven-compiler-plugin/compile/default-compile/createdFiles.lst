@@ -1,0 +1,10 @@
+fooddeliveryfive/MenuApplication.class
+fooddeliveryfive/MenuDeleted.class
+fooddeliveryfive/MenuRepository.class
+fooddeliveryfive/AbstractEvent.class
+fooddeliveryfive/config/kafka/KafkaProcessor.class
+fooddeliveryfive/MenuController.class
+fooddeliveryfive/AbstractEvent$1.class
+fooddeliveryfive/Menu.class
+fooddeliveryfive/MenuRegistered.class
+fooddeliveryfive/PolicyHandler.class
