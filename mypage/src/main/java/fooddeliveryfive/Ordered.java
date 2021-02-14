@@ -6,6 +6,7 @@ public class Ordered extends AbstractEvent {
     private Long menuId;
     private Integer qty;
     private String status;
+    private String deliveryId;
 
     public Long getId() {
         return id;
@@ -14,11 +15,11 @@ public class Ordered extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getProductId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setProductId(Long menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
     public Integer getQty() {
@@ -34,5 +35,12 @@ public class Ordered extends AbstractEvent {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public String getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(String deliveryId) {
+        this.deliveryId = deliveryId;
     }
 }

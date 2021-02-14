@@ -20,24 +20,42 @@ public class Order {
     public void onPostPersist(){
         Ordered ordered = new Ordered();
         BeanUtils.copyProperties(this, ordered);
-        ordered.publishAfterCommit();
+        ordered.publishAfterCommit(); 
 
 
     }
 
     @PreRemove
     public void onPreRemove(){
-        OrderCancelled orderCancelled = new OrderCancelled();
-        BeanUtils.copyProperties(this, orderCancelled);
-        orderCancelled.publishAfterCommit();
 
         //Following code causes dependency to external APIs
         // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+        if ("OrderCancelled".equals(this.status)){
+            System.out.println("##### Order status1 : " + this.status);
+            
+            OrderCancelled orderCancelled = new OrderCancelled();
+            BeanUtils.copyProperties(this, orderCancelled);
+            orderCancelled.publishAfterCommit();
 
-        .external.Delivery delivery = new .external.Delivery();
-        // mappings goes here
-        Application.applicationContext.getBean(.external.DeliveryService.class)
-            .cancelDelivery(delivery);
+            //Following code causes dependency to external APIs
+            // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+            fooddeliveryfive.external.Delivery delivery = new fooddeliveryfive.external.Delivery();
+            // mappings goes here
+            delivery.setId(this.getDeliveryId());
+            delivery.setStatus(this.status);
+            OrderApplication.applicationContext.getBean(fooddeliveryfive.external.DeliveryService.class)
+                .cancelDelivery(delivery);
+            
+        } else if ("Delivered".equals(this.status)){
+            System.out.println("##### Order status2 : " + this.status);
+            
+        } else if ( "DeliveryCanceled".equals(this.status)){
+            System.out.println("##### Order status3 : " + this.status);
+            
+        } else {
+            System.out.println("##### Order status4 : " + this.status);
+        }
 
 
     }

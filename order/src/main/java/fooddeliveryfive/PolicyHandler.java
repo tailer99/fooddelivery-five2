@@ -30,13 +30,6 @@ public class PolicyHandler{
         }
     }
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverDeliveryRequested_(@Payload DeliveryRequested deliveryRequested){
-
-        if(deliveryRequested.isMe()){
-            System.out.println("##### listener  : " + deliveryRequested.toJson());
-        }
-    }
-    @StreamListener(KafkaProcessor.INPUT)
     public void wheneverMenuRegistered_(@Payload MenuRegistered menuRegistered){
 
         if(menuRegistered.isMe()){

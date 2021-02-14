@@ -13,7 +13,7 @@ public class Mypage {
         private Long orderId;
         private Long menuId;
         private Long deliveryId;
-        private Integer menuId;
+        private Integer qty;
         private String status;
 
 
@@ -45,12 +45,12 @@ public class Mypage {
         public void setDeliveryId(Long deliveryId) {
             this.deliveryId = deliveryId;
         }
-        public Integer getMenuId() {
-            return menuId;
+        public Integer getQty() {
+            return qty;
         }
-
-        public void setMenuId(Integer menuId) {
-            this.menuId = menuId;
+    
+        public void setQty(Integer qty) {
+            this.qty = qty;
         }
         public String getStatus() {
             return status;

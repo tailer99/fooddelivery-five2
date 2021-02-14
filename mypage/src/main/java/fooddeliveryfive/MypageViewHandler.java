@@ -22,14 +22,14 @@ public class MypageViewHandler {
         try {
             if (ordered.isMe()) {
                 // view 객체 생성
-                  = new ();
+                Mypage mypage = new Mypage();
                 // view 객체에 이벤트의 Value 를 set 함
-                .setOrderId(.getId());
-                .setMenuId(.getProductId());
-                .setMenuId(.getQty());
-                .setStatus(.getStatus());
+                mypage.setOrderId(ordered.getId());
+                mypage.setMenuId(ordered.getMenuId());
+                mypage.setQty(ordered.getQty());
+                mypage.setStatus(ordered.getStatus());
                 // view 레파지 토리에 save
-                Repository.save();
+                mypageRepository.save(mypage);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -42,11 +42,13 @@ public class MypageViewHandler {
         try {
             if (orderCancelled.isMe()) {
                 // view 객체 조회
-                List<> List = Repository.findByOrderId(.getId());
-                for(  : List){
+                List<Mypage> mypageList = mypageRepository.findByOrderId(orderCancelled.getId());
+                for(Mypage mypage : mypageList){
                     // view 객체에 이벤트의 eventDirectValue 를 set 함
+                    mypage.setOrderId(orderCancelled.getId());
+                    mypage.setStatus(orderCancelled.getStatus());
                     // view 레파지 토리에 save
-                    Repository.save();
+                    mypageRepository.save(mypage);
                 }
             }
         }catch (Exception e){
@@ -58,11 +60,12 @@ public class MypageViewHandler {
         try {
             if (deliveryCanceled.isMe()) {
                 // view 객체 조회
-                List<> List = Repository.findByDeliveryId(.getId());
-                for(  : List){
+                List<Mypage> mypageList = mypageRepository.findByDeliveryId(deliveryCanceled.getId());
+                for(Mypage mypage : mypageList){
                     // view 객체에 이벤트의 eventDirectValue 를 set 함
+                    mypage.setStatus(deliveryCanceled.getStatus());
                     // view 레파지 토리에 save
-                    Repository.save();
+                    mypageRepository.save(mypage);
                 }
             }
         }catch (Exception e){
@@ -74,11 +77,12 @@ public class MypageViewHandler {
         try {
             if (delivered.isMe()) {
                 // view 객체 조회
-                List<> List = Repository.findByDeliveryId(.getId());
-                for(  : List){
+                List<Mypage> mypageList = mypageRepository.findByDeliveryId(delivered.getId());
+                for(Mypage mypage : mypageList){
                     // view 객체에 이벤트의 eventDirectValue 를 set 함
+                    mypage.setStatus(delivered.getStatus());
                     // view 레파지 토리에 save
-                    Repository.save();
+                    mypageRepository.save(mypage);
                 }
             }
         }catch (Exception e){
@@ -86,15 +90,4 @@ public class MypageViewHandler {
         }
     }
 
-    @StreamListener(KafkaProcessor.INPUT)
-    public void whenOrderCancelled_then_DELETE_1(@Payload OrderCancelled orderCancelled) {
-        try {
-            if (orderCancelled.isMe()) {
-                // view 레파지 토리에 삭제 쿼리
-                Repository.deleteByStatus(.getId());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 }
