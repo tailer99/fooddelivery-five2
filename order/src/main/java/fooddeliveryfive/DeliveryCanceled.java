@@ -1,10 +1,9 @@
 package fooddeliveryfive;
 
-public class Ordered extends AbstractEvent {
+public class DeliveryCanceled extends AbstractEvent {
 
     private Long id;
-    private Long menuId;
-    private Integer qty;
+    private Long orderId;
     private String status;
 
     public Long getId() {
@@ -14,19 +13,12 @@ public class Ordered extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getMenuId() {
-        return menuId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
-    public Integer getQty() {
-        return qty;
-    }
-
-    public void setQty(Integer qty) {
-        this.qty = qty;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
     public String getStatus() {
         return status;

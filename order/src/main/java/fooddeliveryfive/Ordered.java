@@ -14,11 +14,11 @@ public class Ordered extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getProductId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setProductId(Long menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
     public Integer getQty() {

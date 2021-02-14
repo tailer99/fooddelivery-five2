@@ -43,8 +43,11 @@ public class Order {
             delivery.setId(this.getDeliveryId());
             delivery.setStatus(this.status);
             OrderApplication.applicationContext.getBean(fooddeliveryfive.external.DeliveryService.class)
-                .cancelDelivery(delivery);
+                .cancelDelivery(this.getDeliveryId());
+
+            orderCancelled.setStatus(this.status);
             
+                    
         } else if ("Delivered".equals(this.status)){
             System.out.println("##### Order status2 : " + this.status);
             

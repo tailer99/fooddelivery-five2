@@ -11,6 +11,7 @@ fooddeliveryfive/Menu.class
 fooddeliveryfive/external/DeliveryService.class
 fooddeliveryfive/DeliveryRequested.class
 fooddeliveryfive/MenuRegistered.class
+fooddeliveryfive/DeliveryCanceled.class
 fooddeliveryfive/AbstractEvent.class
 fooddeliveryfive/Order.class
 fooddeliveryfive/Delivered.class

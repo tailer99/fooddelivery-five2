@@ -16,6 +16,9 @@ public class Delivery {
 
     @PostPersist
     public void onPostPersist(){
+
+        System.out.println("##### Delivery PostPersist : " + this.id + " ," + this.orderId + " ," + this.status);
+
         DeliveryRequested deliveryRequested = new DeliveryRequested();
         BeanUtils.copyProperties(this, deliveryRequested);
         deliveryRequested.publishAfterCommit();
@@ -25,9 +28,26 @@ public class Delivery {
 
     @PostUpdate
     public void onPostUpdate(){
-        Delivered delivered = new Delivered();
-        BeanUtils.copyProperties(this, delivered);
-        delivered.publishAfterCommit();
+        System.out.println("##### Delivery PostPersist : " + this.id + " ," + this.orderId + " ," + this.status);
+
+        if ("Delivered".equals(this.status)){
+            System.out.println("##### Delivery status1 : " + this.status);
+
+            Delivered delivered = new Delivered();
+            BeanUtils.copyProperties(this, delivered);
+            delivered.publishAfterCommit();
+
+        } else if ("DeliveryCanceled".equals(this.status)){
+            System.out.println("##### Delivery status2 : " + this.status);
+
+            DeliveryCanceled deliveryCanceled = new DeliveryCanceled();
+            BeanUtils.copyProperties(this, deliveryCanceled);
+            deliveryCanceled.publishAfterCommit();
+    
+        } else {
+            System.out.println("##### Delivery status3 : " + this.status);
+        }
+
 
 
     }
@@ -35,9 +55,10 @@ public class Delivery {
     @PostRemove
     public void onPostRemove(){
         DeliveryCanceled deliveryCanceled = new DeliveryCanceled();
+        this.status = "OrderCancelled";
         BeanUtils.copyProperties(this, deliveryCanceled);
         deliveryCanceled.publishAfterCommit();
-
+        
 
     }
 

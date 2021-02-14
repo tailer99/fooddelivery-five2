@@ -89,5 +89,23 @@ public class MypageViewHandler {
             e.printStackTrace();
         }
     }
+    @StreamListener(KafkaProcessor.INPUT)
+    public void whenDeliveryRequested_then_UPDATE(@Payload DeliveryRequested deliveryRequested) {
+        try {
+            if (deliveryRequested.isMe()) {
+                // view 객체 조회
+                List<Mypage> mypageList = mypageRepository.findByOrderId(deliveryRequested.getOrderId());
+                for(Mypage mypage : mypageList){
+                    // view 객체에 이벤트의 eventDirectValue 를 set 함
+                    mypage.setDeliveryId(deliveryRequested.getId());
+                    mypage.setStatus(deliveryRequested.getStatus());
+                    // view 레파지 토리에 save
+                    mypageRepository.save(mypage);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }
