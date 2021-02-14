@@ -6,11 +6,11 @@ public class MenuDeleted extends AbstractEvent {
     private Long menuId;
     private String menuName;
 
-    public Long getId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setId(Long menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
     public String getMenuName() {
