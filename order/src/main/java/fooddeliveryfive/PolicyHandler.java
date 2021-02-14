@@ -15,32 +15,46 @@ public class PolicyHandler{
 
     }
 
+    @Autowired
+    OrderRepository orderRepository;
+    @Autowired
+    MenuRepository menuRepository;
+
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverDelivered_(@Payload Delivered delivered){
+    public void wheneverDelivered_UpdateStatus(@Payload Delivered delivered){
 
         if(delivered.isMe()){
-            System.out.println("##### listener  : " + delivered.toJson());
-        }
-    }
-    @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverDeliveryRequested_(@Payload DeliveryRequested deliveryRequested){
+            Order order = new Order();
+            order.setId(delivered.getOrderId());
+            order.setStatus(delivered.getStatus());
 
-        if(deliveryRequested.isMe()){
-            System.out.println("##### listener  : " + deliveryRequested.toJson());
+            orderRepository.save(order);
+
+            System.out.println("##### listener UpdateStatus : " + delivered.toJson());
         }
     }
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverMenuRegistered_(@Payload MenuRegistered menuRegistered){
+    public void wheneverMenuRegistered_RegisterMenu(@Payload MenuRegistered menuRegistered){
 
         if(menuRegistered.isMe()){
-            System.out.println("##### listener  : " + menuRegistered.toJson());
+            Menu menu = new Menu();
+            menu.setMenuId(menuRegistered.getMenuId());
+            menu.setMenuName(menuRegistered.getMenuName());
+
+            menuRepository.save(menu);
+            System.out.println("##### listener RegisterMenu : " + menuRegistered.toJson());
         }
     }
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverMenuDeleted_(@Payload MenuDeleted menuDeleted){
+    public void wheneverMenuDeleted_DeleteMenu(@Payload MenuDeleted menuDeleted){
 
         if(menuDeleted.isMe()){
-            System.out.println("##### listener  : " + menuDeleted.toJson());
+            Menu menu = new Menu();
+            menu.setMenuId(menuDeleted.getMenuId());
+            menu.setMenuName(menuDeleted.getMenuName());
+            
+            menuRepository.delete(menu);
+            System.out.println("##### listener DeleteMenu : " + menuDeleted.toJson());
         }
     }
 
